@@ -21,6 +21,6 @@ export default function FlashcardGame(props)
         <div>
             <Flashcard max={props.max} maxRange = {props.maxRange} 
                 onCorrectAnswer={onCorrectAnswer} onIncorrectAnswer={onIncorrectAnswer} />
-            <div style={{margin:'5px'}}><ProgressBar now={currentPercent()} style={{width:'10em'}} /></div>
+            <div style={{margin:'5px'}}><ProgressBar now={currentPercent()} label={score} style={{width:'10em'}} /></div>
         </div>);
 }

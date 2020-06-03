@@ -41,7 +41,7 @@ function Flashcard(props) {
             <div className="text-right">{first}</div>
             <div className="text-right">x {second}</div>
             <hr />
-            <div>{answer}</div>
+            <div className="text-right">{answer}</div>
         </Card.Body>
     </Card>);
 }
