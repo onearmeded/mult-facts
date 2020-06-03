@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Flashcard from './Flashcard';
+import FlashcardGame from './FlashcardGame';
 
 function App() {
   return (
-    <Flashcard max={4} maxRange={10}></Flashcard>
+    <FlashcardGame max={4} maxRange={10} questions={25}/>
   );
 }
 

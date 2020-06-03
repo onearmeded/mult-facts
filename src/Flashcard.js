@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import useReferredState from './useReferredState';
 
 function Flashcard(props) {
     const [ first, setFirst] = useState(randomInt(props.max));
@@ -14,14 +13,7 @@ function Flashcard(props) {
           window.removeEventListener("keydown", onKeyDown);
         } // This return function cleans up the event listener 
       }, [answer, first, second]); 
-// try setting the array to actual props
 
-    //const answerRef = useRef(answer);
-
-    // const setAnswer = x => {
-    //     answerRef.current = x;
-    //     _setAnswer(x);
-    // }
 
     function onKeyDown( { key }) {
         setBorder('dark');
@@ -31,10 +23,12 @@ function Flashcard(props) {
                 setFirst(randomInt(props.max));
                 setSecond(randomInt(props.maxRange));
                 setAnswer('');
+                props.onCorrectAnswer();
             }
             else {
                 setBorder('danger')
                 setAnswer('');
+                props.onIncorrectAnswer();
             }
         }
         else {
