@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 
 function Flashcard(props) {
-    const [ first, setFirst] = useState(randomInt(props.max));
-    const [ second, setSecond ] = useState(randomInt(props.maxRange));
+    const [ first, setFirst] = useState(randomInt(props.max, props.min));
+    const [ second, setSecond ] = useState(randomInt(props.maxRange, props.min));
     const [ answer, setAnswer ] = useState('');
     const [ border, setBorder ] = useState('dark');
 
@@ -20,8 +20,8 @@ function Flashcard(props) {
 
         if (key === "Enter") {
             if (parseInt(answer) === (first * second)) {
-                setFirst(randomInt(props.max));
-                setSecond(randomInt(props.maxRange));
+                setFirst(randomInt(props.max, props.min));
+                setSecond(randomInt(props.maxRange, props.min));
                 setAnswer('');
                 props.onCorrectAnswer();
             }
@@ -31,12 +31,17 @@ function Flashcard(props) {
                 props.onIncorrectAnswer();
             }
         }
-        else {
+        else if (key === "Backspace" || key === "Delete") {
+            if (answer.length > 0) {
+                setAnswer(answer.slice(0, -1));
+            }
+        }
+        else if (key < 10) { // check if key is a digit
             setAnswer(answer + key);            
         }
     }
 
-    return (<Card style={{ width:'5em' }} border={border}>
+    return (<Card style={{ width:'5em' }} border={border} className='bg-primary text-light font-weight-bold'>
         <Card.Body>
             <div className="text-right">{first}</div>
             <div className="text-right">x {second}</div>
@@ -46,8 +51,8 @@ function Flashcard(props) {
     </Card>);
 }
 
-function randomInt(max) {
-    return Math.floor(Math.random() * (max + 1));
+function randomInt(max, min = 0) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 export default Flashcard;

@@ -4,7 +4,7 @@ import FlashcardGame from './FlashcardGame';
 
 function App() {
   return (
-    <FlashcardGame max={4} maxRange={10} questions={25}/>
+    <FlashcardGame min={2} max={5} maxRange={10} questions={3}/>
   );
 }
 
