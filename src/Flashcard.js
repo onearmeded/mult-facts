@@ -41,7 +41,9 @@ function Flashcard(props) {
         }
     }
 
-    return (<Card style={{ width:'5em' }} border={border} className='bg-primary text-light font-weight-bold'>
+    const getClassName = () => (border === "danger" ? "bg-danger" : "bg-primary") + " text-light font-weight-bold";
+
+    return (<Card style={{ width:'5em' }} border={border} className={getClassName()}>
         <Card.Body>
             <div className="text-right">{first}</div>
             <div className="text-right">x {second}</div>

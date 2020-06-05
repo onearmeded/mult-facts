@@ -29,7 +29,7 @@ export default function Prize(props) {
 
     const selectPrize = () => setPrize(prizes[randomInt(prizes.length)]);
 
-    return (prizeShown ? <div className='lead bg-secondary text-light w-50'>{prize}</div> :
+    return (prizeShown ? <div border='bg-dark' className='lead bg-secondary text-light w-50 border border-dark rounded'>{prize}</div> :
         typingShown ? <Typing speed={75} startDelay={750} onFinishedTyping={onTypingComplete}>
             <div>Your prize is... Wait for it...</div>
             </Typing> :
