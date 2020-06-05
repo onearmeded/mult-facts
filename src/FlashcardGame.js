@@ -3,6 +3,7 @@ import Flashcard from './Flashcard';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
 import Typing from 'react-typing-animation';
+import Prize from './Prize';
 
 export default function FlashcardGame(props)
 {
@@ -32,6 +33,7 @@ export default function FlashcardGame(props)
         <div style={{margin: '1rem'}}>
             <div><img src={ require("./lemon-meringue.png")} alt='Lemon' style={{ height: '425px' }}/></div>
             <Typing><div>Perfect 10, Sugarplum!</div></Typing>
+            <Prize/>
             <Button onClick={newGame} style={{ border: '5px' }}>New Game</Button>
         </div>);
 
@@ -40,6 +42,7 @@ export default function FlashcardGame(props)
         <div style={{margin: '1rem'}}>
             <div><img src={ require("./great-job-star.png")} alt='Great job'/></div>
             <Typing><div>Way to go -- you did it!</div></Typing>
+            <Prize/>
             <Button onClick={newGame} style={{ border: '5px' }}>New Game</Button>
         </div>);
 
