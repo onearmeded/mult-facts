@@ -20,8 +20,7 @@ function Flashcard(props) {
 
         if (key === "Enter") {
             if (parseInt(answer) === (first * second)) {
-                setFirst(randomInt(props.max, props.min));
-                setSecond(randomInt(props.maxRange, props.min));
+                newProblem();
                 setAnswer('');
                 props.onCorrectAnswer();
             }
@@ -38,6 +37,19 @@ function Flashcard(props) {
         }
         else if (key < 10) { // check if key is a digit
             setAnswer(answer + key);            
+        }
+    }
+
+    const newProblem = () => {
+        let newFirst = randomInt(props.max, props.min);
+        let newSecond = randomInt(props.maxRange, props.min);
+
+        if (newFirst === first && newSecond === second) {
+            newProblem();
+        }
+        else {
+            setFirst(newFirst);
+            setSecond(newSecond);
         }
     }
 
