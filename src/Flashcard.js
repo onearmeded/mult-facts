@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Card from 'react-bootstrap/Card';
 
 function Flashcard(props) {
@@ -6,29 +6,15 @@ function Flashcard(props) {
     const [ second, setSecond ] = useState(randomInt(props.maxRange, props.min));
     const [ answer, setAnswer ] = useState('');
     const [ border, setBorder ] = useState('dark');
+    const [ answerComplete, setAnswerComplete ] = useState(false);
 
-    useEffect(()=> {
-        window.addEventListener("keydown", onKeyDown);
-        return () => {
-          window.removeEventListener("keydown", onKeyDown);
-        } // This return function cleans up the event listener 
-      }, [answer, first, second]); 
-
-
-    function onKeyDown( { key }) {
+    const onKeyDown = useCallback( keyEvt => 
+    {
+        const {key} = keyEvt;
         setBorder('dark');
 
         if (key === "Enter") {
-            if (parseInt(answer) === (first * second)) {
-                newProblem();
-                setAnswer('');
-                props.onCorrectAnswer();
-            }
-            else {
-                setBorder('danger')
-                setAnswer('');
-                props.onIncorrectAnswer();
-            }
+            setAnswerComplete(true);
         }
         else if (key === "Backspace" || key === "Delete") {
             if (answer.length > 0) {
@@ -38,7 +24,14 @@ function Flashcard(props) {
         else if (key < 10) { // check if key is a digit
             setAnswer(answer + key);            
         }
-    }
+    }, [answer]);
+
+    useEffect(()=> {
+        window.addEventListener("keydown", onKeyDown);
+        return () => {
+          window.removeEventListener("keydown", onKeyDown);
+        } // This return function cleans up the event listener 
+      }, [answer, answerComplete, onKeyDown]); 
 
     const newProblem = () => {
         let newFirst = randomInt(props.max, props.min);
@@ -54,6 +47,21 @@ function Flashcard(props) {
     }
 
     const getClassName = () => (border === "danger" ? "bg-danger" : "bg-primary") + " text-light font-weight-bold";
+
+    if (answerComplete) {
+        if (parseInt(answer) === (first * second)) {
+            newProblem();
+            setAnswer('');
+            props.onCorrectAnswer();
+        }
+        else {
+            setBorder('danger')
+            setAnswer('');
+            props.onIncorrectAnswer();
+        }
+
+        setAnswerComplete(false);
+    }
 
     return (<Card style={{ width:'5em' }} border={border} className={getClassName()}>
         <Card.Body>
