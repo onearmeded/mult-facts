@@ -63,12 +63,13 @@ function Flashcard(props) {
         setAnswerComplete(false);
     }
 
-    return (<Card style={{ width:'5em' }} border={border} className={getClassName()}>
+    return (<Card style={{ width:'5em', fontSize: '36pt' }} border={border} className={getClassName()}>
         <Card.Body>
             <div className="text-right">{first}</div>
             <div className="text-right">x {second}</div>
             <hr />
             <div className="text-right">{answer}</div>
+            <div style={{visibility: 'hidden'}}><input type='text' style={{height:'0px'}} autoFocus/> </div>
         </Card.Body>
     </Card>);
 }
