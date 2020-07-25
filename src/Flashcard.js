@@ -69,7 +69,7 @@ function Flashcard(props) {
             <div className="text-right">x {second}</div>
             <hr />
             <div className="text-right">{answer}</div>
-            <div style={{visibility: 'hidden'}}><input type='text' style={{height:'0px'}} autoFocus/> </div>
+            <div style={{visibility: 'hidden'}}><input type='tel' style={{height:'0px'}} autoFocus/> </div>
         </Card.Body>
     </Card>);
 }
