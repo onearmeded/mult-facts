@@ -75,11 +75,11 @@ function Flashcard(props) {
                 break;
             
             default:
-                throw "Unexpected operation";
+                throw new Error("Unexpected operation");
 
         }
 
-        return answer == correctAnswer;
+        return parseInt(answer) === correctAnswer;
     }
 
     const getClassName = () => (border === "danger" ? "bg-danger" : "bg-primary") + " text-light font-weight-bold";
