@@ -5,7 +5,7 @@ function Flashcard(props) {
     const [ first, setFirst] = useState(randomInt(props.max, props.min));
     const [ second, setSecond ] = useState(randomInt(props.maxRange, props.min));
     const [ answer, setAnswer ] = useState('');
-    const [ operation, setOperation ] = useState('x');
+    const [ operation, setOperation ] = useState('+');
     const [ border, setBorder ] = useState('dark');
     const [ answerComplete, setAnswerComplete ] = useState(false);
 
@@ -36,7 +36,7 @@ function Flashcard(props) {
 
 
     const chooseOperation = () => {
-        const operations = ['x', '+'];
+        const operations = ['-', '+'];
         let index = randomInt(operations.length - 1);
         return operations[index];
     }
@@ -44,6 +44,13 @@ function Flashcard(props) {
     const newProblem = () => {
         let newFirst = randomInt(props.max, props.min);
         let newSecond = randomInt(props.maxRange, props.min);
+        let newOperation = chooseOperation();
+
+        if (newOperation === '-') {
+            if (newFirst < newSecond) {
+                [newSecond, newFirst] = [newFirst, newSecond];
+            }
+        }
 
         if (newFirst === first && newSecond === second) {
             newProblem();
@@ -51,7 +58,7 @@ function Flashcard(props) {
         else {
             setFirst(newFirst);
             setSecond(newSecond);
-            setOperation(chooseOperation());
+            setOperation(newOperation);
         }
     }
 
