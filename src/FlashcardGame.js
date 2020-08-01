@@ -4,6 +4,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Button from 'react-bootstrap/Button';
 import Typing from 'react-typing-animation';
 import Prize from './Prize';
+import Keypad from './Keypad';
 
 export default function FlashcardGame(props)
 {
@@ -29,6 +30,8 @@ export default function FlashcardGame(props)
         setIncorrectCount(0);
     }
 
+    const onKeypadButton = (key) => console.log('Got keypress: ' + key);
+
     const perfectWinnerLayout = (
         <div style={{margin: '1rem'}}>
             <div><img src={ require("./lemon-meringue.png")} alt='Lemon' style={{ height: '425px' }}/></div>
@@ -51,6 +54,7 @@ export default function FlashcardGame(props)
             <Flashcard max={props.max} maxRange={props.maxRange} min={props.min}
                 onCorrectAnswer={onCorrectAnswer} onIncorrectAnswer={onIncorrectAnswer} />
             <div style={{margin:'1rem'}}><ProgressBar now={currentPercent()} label={score} style={{width:'10em'}} /></div>
+            <Keypad onKeyPress={onKeypadButton}/>
         </div>
     );
 
