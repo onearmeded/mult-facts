@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Card from 'react-bootstrap/Card';
 
-function Flashcard({ first, second, answer, operation }) {
-    let border = 'dark';
+function Flashcard({ first, second, answer, operation, border }) {
     const getClassName = () =>  (border === "danger" ? "bg-danger" : "bg-primary") + " text-light font-weight-bold";
 
     return (<Card style={{ width:'5em', fontSize: '36pt' }} border={border} className={getClassName()}>

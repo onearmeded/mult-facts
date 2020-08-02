@@ -15,6 +15,7 @@ export default function FlashcardGame(props)
     const [ first, setFirst] = useState(randomInt(props.max, props.min));
     const [ second, setSecond ] = useState(randomInt(props.maxRange, props.min));
     const [ operation, setOperation ] = useState('+');
+    const [ border, setBorder ] = useState('dark');
 
     const onCorrectAnswer = () => {
         setScore(score + 1);
@@ -42,6 +43,8 @@ export default function FlashcardGame(props)
     const onKeypadButton = useCallback(keyEvt =>  {
         const {key} = keyEvt;
 
+        setBorder("dark");
+
         if (key === "Enter") {
             setAnswerComplete(true);
         }
@@ -54,9 +57,6 @@ export default function FlashcardGame(props)
             setAnswer(answer + key);            
         }
     }, [answer]);
-
-
-    const [ border, setBorder ] = useState('dark');
 
     const onKeyDown = useCallback( keyEvt => 
     {
@@ -156,7 +156,7 @@ export default function FlashcardGame(props)
 
     const gameLayout = (
         <div style={{margin: '1rem'}}>
-            <Flashcard first={first} second={second} answer={answer} operation={operation} />
+            <Flashcard first={first} second={second} answer={answer} operation={operation} border={border} />
             <div style={{margin:'1rem'}}><ProgressBar now={currentPercent()} label={score} style={{width:'10em'}} /></div>
             <Keypad onKeyPress={onKeypadButton}/>
         </div>
