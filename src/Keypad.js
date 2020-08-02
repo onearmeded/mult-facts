@@ -40,7 +40,7 @@ export default function Keypad({onKeyPress}) {
     }
 
     const userAgent = navigator.userAgent;
-    if (!userAgent.includes("Android") && !userAgent.includes("iPhone") && !userAgent.includes("iPad")) {
+    if (!userAgent.includes("Android") && !userAgent.includes("iPhone") && !userAgent.includes("iPad") && !userAgent.includes("Mac OS X")) {
         return null;
     }
 
