@@ -10,8 +10,7 @@ function Flashcard({ first, second, answer, operation }) {
             <div className="text-right">{first}</div>
             <div className="text-right">{operation} {second}</div>
             <hr />
-            <div className="text-right">{answer}</div>
-            <div style={{visibility: 'hidden'}}><input type='tel' style={{height:'0px'}} autoFocus/> </div>
+            <div className="text-right">{answer ? answer : '\u00A0'}</div>
         </Card.Body>
     </Card>);
 }
