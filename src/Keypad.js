@@ -6,11 +6,11 @@ import Button from 'react-bootstrap/Button';
 
 export default function Keypad({onKeyPress}) {
     function makeButton(text) {
-        return <Button key={text.toString()} variant='secondary' size='lg' block style={{margin: '2px' }} onClick={onKeyPress({ key: text })}>{text}</Button>;
+        return <Button key={text.toString()} variant='secondary' block style={{margin: '2px' }} onClick={() => onKeyPress({ key: text })}>{text}</Button>;
     }
 
     function makeColumn(num) { 
-        return <Col key={'col'+num}>{makeButton(num)}</Col>;
+        return <Col key={'col'+num} >{makeButton(num)}</Col>;
     }
 
     function makeRow(start) {
@@ -20,7 +20,7 @@ export default function Keypad({onKeyPress}) {
             cols.push(makeColumn(i));
         }
 
-        return <Row key={'row' + start}>{cols}</Row>;
+        return <Row key={'row' + start} noGutters='true'>{cols}</Row>;
     }
 
     function makeKeyPad() { 
@@ -30,14 +30,17 @@ export default function Keypad({onKeyPress}) {
             rows.push(makeRow(i));
         }
 
-        let zero = <Row key='row0'>{makeColumn(0)}</Row>;
-        rows.push(zero);
+        let row = <Row key='row0'>{makeColumn(0)}</Row>;
+        rows.push(row);
+
+        row = <Row key='rowX'>{makeColumn('Delete')}{makeColumn('Enter')}</Row>;
+        rows.push(row);
 
         return rows;
     }
 
     return (
-        <Container style={{ width:'5em', fontSize: '36pt', margin: '5px' }}>
+        <Container style={{ width:'5em', fontSize: '36pt', margin: '5px' }} >
             { makeKeyPad() }
         </Container>
     );

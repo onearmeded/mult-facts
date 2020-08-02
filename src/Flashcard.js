@@ -1,110 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 
-function Flashcard(props) {
-    const [ first, setFirst] = useState(randomInt(props.max, props.min));
-    const [ second, setSecond ] = useState(randomInt(props.maxRange, props.min));
-    const [ answer, setAnswer ] = useState('');
-    const [ operation, setOperation ] = useState('+');
-    const [ border, setBorder ] = useState('dark');
-    const [ answerComplete, setAnswerComplete ] = useState(false);
-
-    const onKeyDown = useCallback( keyEvt => 
-    {
-        const {key} = keyEvt;
-        setBorder('dark');
-
-        if (key === "Enter") {
-            setAnswerComplete(true);
-        }
-        else if (key === "Backspace" || key === "Delete") {
-            if (answer.length > 0) {
-                setAnswer(answer.slice(0, -1));
-            }
-        }
-        else if (key < 10) { // check if key is a digit
-            setAnswer(answer + key);            
-        }
-    }, [answer]);
-
-    useEffect(()=> {
-        window.addEventListener("keydown", onKeyDown);
-        return () => {
-          window.removeEventListener("keydown", onKeyDown);
-        } // This return function cleans up the event listener 
-      }, [answer, answerComplete, onKeyDown]); 
-
-
-    const chooseOperation = () => {
-        const operations = ['-', '+'];
-        let index = randomInt(operations.length - 1);
-        return operations[index];
-    }
-
-    const newProblem = () => {
-        let newFirst = randomInt(props.max, props.min);
-        let newSecond = randomInt(props.maxRange, props.min);
-        let newOperation = chooseOperation();
-
-        if (newOperation === '-') {
-            if (newFirst < newSecond) {
-                [newSecond, newFirst] = [newFirst, newSecond];
-            }
-        }
-
-        if (newFirst === first && newSecond === second) {
-            newProblem();
-        }
-        else {
-            setFirst(newFirst);
-            setSecond(newSecond);
-            setOperation(newOperation);
-        }
-    }
-
-    const verifyAnswer = () => {
-        let correctAnswer = -1;
-        switch (operation) {
-            case 'x':
-                correctAnswer = first * second;
-                break;
-
-            case '+':
-                correctAnswer = first + second;
-                break;
-
-            case '-':
-                correctAnswer = first - second;
-                break;
-
-            case '/':
-                correctAnswer = first / second;
-                break;
-            
-            default:
-                throw new Error("Unexpected operation");
-
-        }
-
-        return parseInt(answer) === correctAnswer;
-    }
-
-    const getClassName = () => (border === "danger" ? "bg-danger" : "bg-primary") + " text-light font-weight-bold";
-
-    if (answerComplete) {
-        if (verifyAnswer()) {
-            newProblem();
-            setAnswer('');
-            props.onCorrectAnswer();
-        }
-        else {
-            setBorder('danger')
-            setAnswer('');
-            props.onIncorrectAnswer();
-        }
-
-        setAnswerComplete(false);
-    }
+function Flashcard({ first, second, answer, operation }) {
+    let border = 'dark';
+    const getClassName = () =>  (border === "danger" ? "bg-danger" : "bg-primary") + " text-light font-weight-bold";
 
     return (<Card style={{ width:'5em', fontSize: '36pt' }} border={border} className={getClassName()}>
         <Card.Body>
@@ -117,8 +16,6 @@ function Flashcard(props) {
     </Card>);
 }
 
-function randomInt(max, min = 0) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
+
 
 export default Flashcard;
