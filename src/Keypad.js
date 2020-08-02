@@ -39,6 +39,11 @@ export default function Keypad({onKeyPress}) {
         return rows;
     }
 
+    const userAgent = navigator.userAgent;
+    if (!userAgent.includes("Android") && !userAgent.includes("iPhone") && !userAgent.includes("iPad")) {
+        return null;
+    }
+
     return (
         <Container style={{ width:'5em', fontSize: '36pt', margin: '5px' }} >
             { makeKeyPad() }

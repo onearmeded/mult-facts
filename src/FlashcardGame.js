@@ -41,7 +41,6 @@ export default function FlashcardGame(props)
 
     const onKeypadButton = useCallback(keyEvt =>  {
         const {key} = keyEvt;
-        console.log("Got keypad: " + key)
 
         if (key === "Enter") {
             setAnswerComplete(true);
@@ -61,7 +60,6 @@ export default function FlashcardGame(props)
 
     const onKeyDown = useCallback( keyEvt => 
     {
-        console.log("Got keypress: " + keyEvt.key)
         onKeypadButton(keyEvt);
 
     }, [onKeypadButton]);
