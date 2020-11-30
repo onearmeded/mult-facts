@@ -38,3 +38,11 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PWD }}
           repository: onearmeded/claires-cards
           tag_with_ref: true
+
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: 'Restart container'
+        run: az container restart --name claires-cards --resource-group claires-cards-container-group
