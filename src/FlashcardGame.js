@@ -14,7 +14,7 @@ export default function FlashcardGame(props)
     const [ answerComplete, setAnswerComplete ] = useState(false);
     const [ first, setFirst] = useState(randomInt(props.max, props.min));
     const [ second, setSecond ] = useState(randomInt(props.maxRange, props.min));
-    const [ operation, setOperation ] = useState('+');
+    const [ operation, setOperation ] = useState('x');
     const [ border, setBorder ] = useState('dark');
 
     const onCorrectAnswer = () => {
@@ -73,15 +73,15 @@ export default function FlashcardGame(props)
 
 
     const chooseOperation = () => {
-        const operations = ['-', '+'];
+        const operations = ['x', '+', '-'];
         let index = randomInt(operations.length - 1);
         return operations[index];
     }
 
     const newProblem = () => {
-        let newFirst = randomInt(props.max, props.min);
-        let newSecond = randomInt(props.maxRange, props.min);
         let newOperation = chooseOperation();
+        let newFirst = newOperation === 'x' ? randomInt(props.maxMult, props.min) : randomInt(props.max, props.min);
+        let newSecond = newOperation === 'x' ? randomInt(props.maxMultRange, props.min) : randomInt(props.maxRange, props.min);
 
         if (newOperation === '-') {
             if (newFirst < newSecond) {
