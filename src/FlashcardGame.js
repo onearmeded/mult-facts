@@ -12,8 +12,8 @@ export default function FlashcardGame(props)
     const [incorrectCount, setIncorrectCount] = useState(0);
     const [ answer, setAnswer ] = useState('');
     const [ answerComplete, setAnswerComplete ] = useState(false);
-    const [ first, setFirst] = useState(randomInt(props.max, props.min));
-    const [ second, setSecond ] = useState(randomInt(props.maxRange, props.min));
+    const [ first, setFirst] = useState(randomInt(props.maxMult, props.min));
+    const [ second, setSecond ] = useState(randomInt(props.maxMultRange, props.min));
     const [ operation, setOperation ] = useState('x');
     const [ border, setBorder ] = useState('dark');
 
