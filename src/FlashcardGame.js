@@ -74,7 +74,7 @@ export default function FlashcardGame(props)
 
 
     const chooseOperation = () => {
-        const operations = ['x', '+', '-'];
+        const operations = ['x', 'x', 'x', '+', '-'];
         let index = randomInt(operations.length - 1);
         return operations[index];
     }
