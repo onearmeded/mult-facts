@@ -16,6 +16,7 @@ export default function FlashcardGame(props)
     const [ second, setSecond ] = useState(randomInt(props.maxMultRange, props.min));
     const [ operation, setOperation ] = useState('x');
     const [ border, setBorder ] = useState('dark');
+    let include10 = props.include10 ? true : false;
 
     const onCorrectAnswer = () => {
         setScore(score + 1);
@@ -73,15 +74,23 @@ export default function FlashcardGame(props)
 
 
     const chooseOperation = () => {
-        const operations = ['x', '+', '-'];
+        const operations = ['x'] // ['x', '+', '-'];
         let index = randomInt(operations.length - 1);
         return operations[index];
     }
 
     const newProblem = () => {
         let newOperation = chooseOperation();
-        let newFirst = newOperation === 'x' ? randomInt(props.maxMult, props.min) : randomInt(props.max, props.min);
+        // If we are including 10 in possible multiplication facts, use max + 1 to represent 10
+        let max = (newOperation === 'x') ? (include10 ? props.maxMult + 1 : props.maxMult) : props.max;
+        let newFirst = newOperation === 'x' ? randomInt(max, props.min) : randomInt(max, props.min);
         let newSecond = newOperation === 'x' ? randomInt(props.maxMultRange, props.min) : randomInt(props.maxRange, props.min);
+
+        // If we are doing multiplication and we got max + 1, switch it to 10
+        if (newOperation === 'x' && newFirst === props.maxMult + 1) {
+            newFirst = 10;
+        }
+
 
         if (newOperation === '-') {
             if (newFirst < newSecond) {
