@@ -12,11 +12,11 @@ export default function FlashcardGame(props)
     const [incorrectCount, setIncorrectCount] = useState(0);
     const [ answer, setAnswer ] = useState('');
     const [ answerComplete, setAnswerComplete ] = useState(false);
-    const [ first, setFirst] = useState(randomInt(props.maxMult, props.min));
-    const [ second, setSecond ] = useState(randomInt(props.maxMultRange, props.min));
-    const [ operation, setOperation ] = useState('x');
+    const [ first, setFirst] = useState(null);
+    const [ second, setSecond ] = useState(null);
+    const [ operation, setOperation ] = useState(null);
     const [ border, setBorder ] = useState('dark');
-    let include10 = props.include10 ? true : false;
+    let possibleMultValues = props.possibleMultValues;
 
     const onCorrectAnswer = () => {
         setScore(score + 1);
@@ -74,23 +74,29 @@ export default function FlashcardGame(props)
 
 
     const chooseOperation = () => {
-        const operations = ['x'] // ['x', '+', '-'];
+        const operations = ['x', '+', '-'];
         let index = randomInt(operations.length - 1);
         return operations[index];
     }
 
+    const chooseFactor = () => {
+        let index = randomInt(possibleMultValues.length - 1);
+        return possibleMultValues[index];
+    }
+
     const newProblem = () => {
         let newOperation = chooseOperation();
-        // If we are including 10 in possible multiplication facts, use max + 1 to represent 10
-        let max = (newOperation === 'x') ? (include10 ? props.maxMult + 1 : props.maxMult) : props.max;
-        let newFirst = newOperation === 'x' ? randomInt(max, props.min) : randomInt(max, props.min);
-        let newSecond = newOperation === 'x' ? randomInt(props.maxMultRange, props.min) : randomInt(props.maxRange, props.min);
+        let newFirst = 0;
+        let newSecond = 0;
 
-        // If we are doing multiplication and we got max + 1, switch it to 10
-        if (newOperation === 'x' && newFirst === props.maxMult + 1) {
-            newFirst = 10;
+        if (newOperation === 'x') {
+            newFirst = randomInt(props.maxMultRange, props.min);
+            newSecond = chooseFactor();
         }
-
+        else {
+            newFirst = randomInt(props.max, props.min);
+            newSecond = randomInt(props.maxRange, props.min); 
+        }
 
         if (newOperation === '-') {
             if (newFirst < newSecond) {
@@ -133,6 +139,10 @@ export default function FlashcardGame(props)
         }
 
         return parseInt(answer) === correctAnswer;
+    }
+
+    if (first === null) {
+        newProblem();
     }
 
     if (answerComplete) {

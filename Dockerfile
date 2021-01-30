@@ -2,11 +2,11 @@ FROM node:12 AS build
 WORKDIR /app
 COPY package* yarn.lock ./
 RUN yarn install
+RUN yarn add react-scripts
 COPY public ./public
 COPY src ./src
 
 FROM build AS dev
-RUN yarn add react-scripts
 EXPOSE 3000
 CMD ["yarn", "start"]
 
