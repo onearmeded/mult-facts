@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Typing from 'react-typing-animation';
 import Prize from './Prize';
 import Keypad from './Keypad';
+import starImage from './great-job-star.png';
+import lemonImage from './lemon-meringue.png';
 
 export default function FlashcardGame(props)
 {
@@ -158,7 +160,7 @@ export default function FlashcardGame(props)
 
     const perfectWinnerLayout = (
         <div style={{margin: '1rem'}}>
-            <div><img src={ require("./lemon-meringue.png")} alt='Lemon' style={{ height: '425px' }}/></div>
+            <div><img src={lemonImage} alt='Lemon' style={{ height: '425px' }}/></div>
             <Typing><div>Perfect 10, Sugarplum!</div></Typing>
             <Prize/>
             <Button onClick={newGame} style={{ border: '5px' }}>New Game</Button>
@@ -167,7 +169,7 @@ export default function FlashcardGame(props)
 
     const winnerLayout = (
         <div style={{margin: '1rem'}}>
-            <div><img src={ require("./great-job-star.png")} alt='Great job'/></div>
+            <div><img src={starImage} alt='Great job'/></div>
             <Typing><div>Way to go -- you did it!</div></Typing>
             <Prize/>
             <Button onClick={newGame} style={{ border: '5px' }}>New Game</Button>
